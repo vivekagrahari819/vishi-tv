@@ -53,6 +53,7 @@ body {
 .buttons .btn:focus {
   background-color: white;
   color:black;
+  font-weight: bold;
   box-shadow: none;
   outline: none;
   border: none;
