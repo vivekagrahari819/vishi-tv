@@ -58,6 +58,7 @@ function App() {
   return (
     <div className='container'>
       <h1 className='title'>Image Search</h1>
+     
       {errorMsg && <p className='error-msg'>{errorMsg}</p>}
       <div className='search-section'>
         <Form onSubmit={handleSearch}>
@@ -70,10 +71,14 @@ function App() {
         </Form>
       </div>
       <div className='filters'>
+        <div onClick={() => handleSelection('code')}>Code</div>
+        <div onClick={() => handleSelection('hacker')}>Hacker</div>
         <div onClick={() => handleSelection('nature')}>Nature</div>
         <div onClick={() => handleSelection('birds')}>Birds</div>
         <div onClick={() => handleSelection('cats')}>Cats</div>
         <div onClick={() => handleSelection('shoes')}>Shoes</div>
+        <div onClick={() => handleSelection('elephant')}>Elephant</div>
+        <div onClick={() => handleSelection('toys')}>Toys</div>
       </div>
       {loading ? (
         <p className='loading'>Loading...</p>
