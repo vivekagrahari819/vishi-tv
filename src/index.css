@@ -52,7 +52,7 @@ body {
 .buttons .btn:active,
 .buttons .btn:focus {
   background-color: white;
-  color:white;
+  color:black;
   box-shadow: none;
   outline: none;
   border: none;
