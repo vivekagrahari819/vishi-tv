@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 20;
@@ -40,6 +39,18 @@ body {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .navbar-brand {
@@ -62,20 +73,30 @@ body {
 }
 
 .navbar-toggler {
+  display: none;
   border: none;
-  padding: 8px 12px;
+  background: none;
   color: var(--text-light);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-.navbar-toggler:focus {
-  box-shadow: none;
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0 5px;
 }
 
 .nav-link {
   color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
-  padding: 15px 20px;
+  padding: 12px 20px;
   border-radius: 8px;
   transition: all var(--transition-speed);
   display: flex;
@@ -101,7 +122,10 @@ body {
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 40px 0;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .title {
@@ -118,18 +142,24 @@ body {
   justify-content: center;
 }
 
+.search-form {
+  width: 100%;
+  max-width: 500px;
+}
+
 .search-input {
   padding: 12px 15px;
   border-radius: 8px;
   border: 1px solid #e1e5ee;
   font-size: 1rem;
   width: 100%;
-  max-width: 500px;
+  transition: all 0.3s;
 }
 
 .search-input:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+  outline: none;
 }
 
 /* Filters */
@@ -141,7 +171,7 @@ body {
   margin-bottom: 30px;
 }
 
-.filters div {
+.filter-item {
   background: white;
   padding: 8px 16px;
   border-radius: 20px;
@@ -152,7 +182,7 @@ body {
   user-select: none;
 }
 
-.filters div:hover {
+.filter-item:hover {
   background: var(--primary-color);
   color: white;
   transform: translateY(-2px);
@@ -226,12 +256,21 @@ body {
   border: none;
   background: var(--primary-color);
   color: white;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .pagination-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   background: var(--secondary-color);
+}
+
+.pagination-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Loading and Error States */
@@ -252,6 +291,13 @@ body {
   border: 1px solid rgba(220, 53, 69, 0.2);
 }
 
+.no-images {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin: 50px 0;
+}
+
 /* Footer */
 .footer {
   background-color: var(--secondary-color);
@@ -259,6 +305,12 @@ body {
   padding: 30px 0;
   text-align: center;
   margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .social-links {
@@ -279,6 +331,35 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .navbar-toggler {
+    display: block;
+  }
+  
+  .navbar-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-nav.show {
+    display: flex;
+  }
+  
+  .nav-item {
+    margin: 5px 0;
+    width: 100%;
+  }
+  
+  .nav-link {
+    justify-content: center;
+  }
+  
   .title {
     font-size: 2rem;
   }
@@ -292,17 +373,13 @@ body {
     gap: 8px;
   }
   
-  .filters div {
+  .filter-item {
     padding: 6px 12px;
     font-size: 0.9rem;
   }
   
-  .nav-link {
-    padding: 10px 15px;
-  }
-  
   .main-content {
-    padding: 20px 0;
+    padding: 20px;
   }
 }
 
@@ -316,7 +393,7 @@ body {
     font-size: 1.8rem;
   }
   
-  .search-input {
+  .search-form {
     max-width: 100%;
   }
   
@@ -326,29 +403,13 @@ body {
     padding-bottom: 10px;
   }
   
-  .filters div {
+  .filter-item {
     flex-shrink: 0;
   }
-}
-
-/* Bootstrap overrides for better integration */
-.container {
-  max-width: 1200px;
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
-}
-
-.form-control:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+  
+  .navbar-container {
+    padding: 0 15px;
+  }
 }
 `;
 
@@ -364,6 +425,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   // Auto-search when component mounts
   useEffect(() => {
@@ -416,128 +478,127 @@ function App() {
     resetSearch();
   };
 
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
     <div className="app-container">
       {/* Navigation Bar */}
-      <nav className="navbar navbar-expand-lg navbar-custom">
-        <div className="container">
+      <nav className="navbar-custom">
+        <div className="navbar-container">
           <a className="navbar-brand" href="/">
             <i className="fas fa-rocket"></i>selling.com
           </a>
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarContent"
-          >
-            <i className="fas fa-bars text-white"></i>
+          
+          <button className="navbar-toggler" onClick={toggleNav}>
+            <i className="fas fa-bars"></i>
           </button>
-          <div className="collapse navbar-collapse" id="navbarContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item active">
-                <a className="nav-link" href="/">
-                  <i className="fas fa-home"></i>Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/about">
-                  <i className="fas fa-user-friends"></i>About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/gallery">
-                  <i className="fas fa-images"></i>Gallery
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/contact">
-                  <i className="fas fa-envelope"></i>Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+          
+          <ul className={`navbar-nav ${isNavOpen ? 'show' : ''}`}>
+            <li className="nav-item active">
+              <a className="nav-link" href="/">
+                <i className="fas fa-home"></i>Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/about">
+                <i className="fas fa-user-friends"></i>About
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/gallery">
+                <i className="fas fa-images"></i>Gallery
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/contact">
+                <i className="fas fa-envelope"></i>Contact
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
 
       {/* Main Content */}
       <div className="main-content">
-        <div className="container">
-          <h1 className='title'>Image Search Gallery</h1>
-          
-          {errorMsg && <p className='error-msg'>{errorMsg}</p>}
-          
-          <div className='search-section'>
-            <Form onSubmit={handleSearch}>
-              <Form.Control
-                type='search'
-                placeholder='Type something to search...'
-                className='search-input'
-                ref={searchInput}
-              />
-            </Form>
-          </div>
-          
-          <div className='filters'>
-            <div onClick={() => handleSelection('nature')}>Nature</div>
-            <div onClick={() => handleSelection('technology')}>Technology</div>
-            <div onClick={() => handleSelection('animals')}>Animals</div>
-            <div onClick={() => handleSelection('travel')}>Travel</div>
-            <div onClick={() => handleSelection('food')}>Food</div>
-            <div onClick={() => handleSelection('sports')}>Sports</div>
-            <div onClick={() => handleSelection('art')}>Art</div>
-            <div onClick={() => handleSelection('architecture')}>Architecture</div>
-          </div>
-          
-          {loading ? (
-            <p className='loading'>Loading beautiful images...</p>
-          ) : (
-            <>
-              <div className='images-grid'>
-                {images.map((image) => (
-                  <div key={image.id} className="image-card">
-                    <img
-                      src={image.urls.small}
-                      alt={image.alt_description || 'Beautiful image'}
-                      className='image'
-                      loading="lazy"
-                    />
-                    <div className="image-overlay">
-                      <p className="image-description">
-                        {image.alt_description || 'No description available'}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {images.length > 0 && (
-                <div className='pagination-buttons'>
-                  {page > 1 && (
-                    <button 
-                      onClick={() => setPage(page - 1)}
-                      className="pagination-btn"
-                    >
-                      Previous
-                    </button>
-                  )}
-                  {page < totalPages && (
-                    <button 
-                      onClick={() => setPage(page + 1)}
-                      className="pagination-btn"
-                    >
-                      Next
-                    </button>
-                  )}
-                </div>
-              )}
-            </>
-          )}
+        <h1 className='title'>Image Search Gallery</h1>
+        
+        {errorMsg && <p className='error-msg'>{errorMsg}</p>}
+        
+        <div className='search-section'>
+          <form className="search-form" onSubmit={handleSearch}>
+            <input
+              type='search'
+              placeholder='Type something to search...'
+              className='search-input'
+              ref={searchInput}
+            />
+          </form>
         </div>
+        
+        <div className='filters'>
+          <div className="filter-item" onClick={() => handleSelection('nature')}>Nature</div>
+          <div className="filter-item" onClick={() => handleSelection('technology')}>Technology</div>
+          <div className="filter-item" onClick={() => handleSelection('animals')}>Animals</div>
+          <div className="filter-item" onClick={() => handleSelection('travel')}>Travel</div>
+          <div className="filter-item" onClick={() => handleSelection('food')}>Food</div>
+          <div className="filter-item" onClick={() => handleSelection('sports')}>Sports</div>
+          <div className="filter-item" onClick={() => handleSelection('art')}>Art</div>
+          <div className="filter-item" onClick={() => handleSelection('architecture')}>Architecture</div>
+        </div>
+        
+        {loading ? (
+          <p className='loading'>Loading beautiful images...</p>
+        ) : (
+          <>
+            {images.length === 0 ? (
+              <p className='no-images'>No images found. Try a different search term.</p>
+            ) : (
+              <>
+                <div className='images-grid'>
+                  {images.map((image) => (
+                    <div key={image.id} className="image-card">
+                      <img
+                        src={image.urls.small}
+                        alt={image.alt_description || 'Beautiful image'}
+                        className='image'
+                        loading="lazy"
+                      />
+                      <div className="image-overlay">
+                        <p className="image-description">
+                          {image.alt_description || 'No description available'}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className='pagination-buttons'>
+                  <button 
+                    onClick={() => setPage(page - 1)}
+                    className="pagination-btn"
+                    disabled={page <= 1}
+                  >
+                    Previous
+                  </button>
+                  <button 
+                    onClick={() => setPage(page + 1)}
+                    className="pagination-btn"
+                    disabled={page >= totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
 
       {/* Footer */}
       <footer className="footer">
-        <div className="container">
+        <div className="footer-container">
           <p>&copy; 2023 selling.com. All rights reserved.</p>
           <div className="social-links">
             <a href="#" className="social-link"><i className="fab fa-twitter"></i></a>
