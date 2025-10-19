@@ -26,6 +26,7 @@ body {
   background-color: #f5f7fb;
   color: var(--text-dark);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -42,25 +43,27 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .navbar-brand {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   color: var(--text-light);
   display: flex;
   align-items: center;
   transition: color var(--transition-speed);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .navbar-brand:hover {
@@ -69,7 +72,7 @@ body {
 
 .navbar-brand i {
   margin-right: 10px;
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
 }
 
 .navbar-toggler {
@@ -79,6 +82,13 @@ body {
   color: var(--text-light);
   font-size: 1.5rem;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-nav {
@@ -87,10 +97,11 @@ body {
   margin: 0;
   padding: 0;
   align-items: center;
+  gap: 5px;
 }
 
 .nav-item {
-  margin: 0 5px;
+  margin: 0;
 }
 
 .nav-link {
@@ -102,6 +113,8 @@ body {
   display: flex;
   align-items: center;
   text-decoration: none;
+  white-space: nowrap;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .nav-link i {
@@ -122,36 +135,37 @@ body {
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 40px 20px;
-  max-width: 1200px;
+  padding: clamp(20px, 4vw, 40px) clamp(15px, 3vw, 20px);
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
 .title {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
   color: var(--secondary-color);
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  line-height: 1.2;
 }
 
 .search-section {
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
   display: flex;
   justify-content: center;
 }
 
 .search-form {
   width: 100%;
-  max-width: 500px;
+  max-width: min(600px, 90vw);
 }
 
 .search-input {
-  padding: 12px 15px;
+  padding: clamp(10px, 2vw, 12px) clamp(12px, 2vw, 15px);
   border-radius: 8px;
   border: 1px solid #e1e5ee;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   width: 100%;
   transition: all 0.3s;
 }
@@ -167,19 +181,23 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: clamp(6px, 1.5vw, 10px);
+  margin-bottom: clamp(20px, 4vw, 30px);
+  padding: 0 10px;
 }
 
 .filter-item {
   background: white;
-  padding: 8px 16px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s;
   border: 1px solid #e1e5ee;
   font-weight: 500;
   user-select: none;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .filter-item:hover {
@@ -189,12 +207,17 @@ body {
   box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
 }
 
+.filter-item:active {
+  transform: translateY(0);
+}
+
 /* Images Grid */
 .images-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+  gap: clamp(10px, 2vw, 20px);
+  margin-bottom: clamp(20px, 4vw, 30px);
+  padding: 0 5px;
 }
 
 .image-card {
@@ -204,6 +227,7 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   background: white;
+  aspect-ratio: 4/3;
 }
 
 .image-card:hover {
@@ -213,7 +237,7 @@ body {
 
 .image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
@@ -225,7 +249,7 @@ body {
   right: 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
   color: white;
-  padding: 15px;
+  padding: clamp(10px, 2vw, 15px);
   transform: translateY(100%);
   transition: transform 0.3s;
 }
@@ -235,21 +259,26 @@ body {
 }
 
 .image-description {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   margin: 0;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Pagination */
 .pagination-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
+  gap: clamp(10px, 2vw, 15px);
+  margin-top: clamp(20px, 4vw, 30px);
+  flex-wrap: wrap;
 }
 
 .pagination-btn {
-  padding: 10px 25px;
+  padding: clamp(8px, 2vw, 10px) clamp(20px, 3vw, 25px);
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.3s;
@@ -257,7 +286,8 @@ body {
   background: var(--primary-color);
   color: white;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  min-width: 100px;
 }
 
 .pagination-btn:hover {
@@ -271,65 +301,108 @@ body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  opacity: 0.6;
 }
 
 /* Loading and Error States */
 .loading {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
   color: var(--primary-color);
-  margin: 50px 0;
+  margin: clamp(30px, 6vw, 50px) 0;
+  padding: 0 20px;
 }
 
 .error-msg {
   text-align: center;
   color: #dc3545;
   background: rgba(220, 53, 69, 0.1);
-  padding: 15px;
+  padding: clamp(12px, 2vw, 15px);
   border-radius: 8px;
   margin-bottom: 20px;
   border: 1px solid rgba(220, 53, 69, 0.2);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .no-images {
   text-align: center;
   color: #6c757d;
-  font-size: 1.1rem;
-  margin: 50px 0;
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  margin: clamp(30px, 6vw, 50px) 0;
+  padding: 0 20px;
 }
 
 /* Footer */
 .footer {
   background-color: var(--secondary-color);
   color: var(--text-light);
-  padding: 30px 0;
+  padding: clamp(20px, 4vw, 30px) 0;
   text-align: center;
   margin-top: auto;
+  width: 100%;
 }
 
 .footer-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
+.footer p {
+  margin-bottom: 10px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
 .social-links {
   margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .social-link {
   color: var(--text-light);
-  margin: 0 10px;
-  font-size: 1.2rem;
-  transition: color 0.3s;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  transition: color 0.3s, transform 0.3s;
   text-decoration: none;
+  padding: 8px;
 }
 
 .social-link:hover {
   color: var(--accent-color);
+  transform: translateY(-2px);
 }
 
-/* Responsive Design */
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Large Desktops (1440px and above) */
+@media (min-width: 1440px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+}
+
+/* Tablets and Small Laptops (768px - 1024px) */
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 15px;
+  }
+  
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+  
+  .nav-link {
+    padding: 10px 15px;
+  }
+}
+
+/* Tablets (768px and below) */
 @media (max-width: 768px) {
   .navbar-toggler {
     display: block;
@@ -343,8 +416,9 @@ body {
     left: 0;
     right: 0;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    padding: 10px;
+    padding: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    gap: 5px;
   }
   
   .navbar-nav.show {
@@ -352,63 +426,160 @@ body {
   }
   
   .nav-item {
-    margin: 5px 0;
+    margin: 0;
     width: 100%;
   }
   
   .nav-link {
     justify-content: center;
-  }
-  
-  .title {
-    font-size: 2rem;
+    padding: 15px 20px;
+    border-radius: 6px;
   }
   
   .images-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
-  .filters {
-    gap: 8px;
-  }
-  
-  .filter-item {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-  
-  .main-content {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 576px) {
-  .images-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-  
-  .title {
-    font-size: 1.8rem;
-  }
-  
-  .search-form {
-    max-width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
   }
   
   .filters {
     justify-content: flex-start;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    margin-left: -5px;
+    margin-right: -5px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .filters::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .filters::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .filters::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+  }
+}
+
+/* Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 10px;
+  }
+  
+  .main-content {
+    padding: 15px 10px;
+  }
+  
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  
+  .image-card {
+    border-radius: 8px;
+  }
+  
+  .filters {
+    gap: 5px;
   }
   
   .filter-item {
-    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
   
-  .navbar-container {
-    padding: 0 15px;
+  .pagination-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pagination-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .search-form {
+    max-width: 100%;
+  }
+}
+
+/* Small Mobile Devices (360px and below) */
+@media (max-width: 360px) {
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .navbar-brand i {
+    font-size: 1.3rem;
+  }
+  
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 6px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .filter-item {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .image-card:hover {
+    transform: none;
+  }
+  
+  .image-overlay {
+    transform: translateY(0);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  }
+  
+  .filter-item:hover {
+    transform: none;
+  }
+  
+  .nav-link:hover {
+    background-color: transparent;
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .navbar-custom,
+  .footer,
+  .search-section,
+  .filters,
+  .pagination-buttons {
+    display: none;
+  }
+  
+  .images-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .image-card {
+    break-inside: avoid;
   }
 }
 `;
@@ -482,6 +653,18 @@ function App() {
     setIsNavOpen(!isNavOpen);
   };
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isNavOpen && !event.target.closest('.navbar-container')) {
+        setIsNavOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isNavOpen]);
+
   return (
     <div className="app-container">
       {/* Navigation Bar */}
@@ -491,28 +674,28 @@ function App() {
             <i className="fas fa-rocket"></i>selling.com
           </a>
           
-          <button className="navbar-toggler" onClick={toggleNav}>
+          <button className="navbar-toggler" onClick={toggleNav} aria-label="Toggle navigation">
             <i className="fas fa-bars"></i>
           </button>
           
           <ul className={`navbar-nav ${isNavOpen ? 'show' : ''}`}>
             <li className="nav-item active">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/" onClick={() => setIsNavOpen(false)}>
                 <i className="fas fa-home"></i>Home
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/about">
+              <a className="nav-link" href="/about" onClick={() => setIsNavOpen(false)}>
                 <i className="fas fa-user-friends"></i>About
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/gallery">
+              <a className="nav-link" href="/gallery" onClick={() => setIsNavOpen(false)}>
                 <i className="fas fa-images"></i>Gallery
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/contact">
+              <a className="nav-link" href="/contact" onClick={() => setIsNavOpen(false)}>
                 <i className="fas fa-envelope"></i>Contact
               </a>
             </li>
@@ -533,6 +716,7 @@ function App() {
               placeholder='Type something to search...'
               className='search-input'
               ref={searchInput}
+              aria-label="Search for images"
             />
           </form>
         </div>
@@ -601,10 +785,10 @@ function App() {
         <div className="footer-container">
           <p>&copy; 2023 selling.com. All rights reserved.</p>
           <div className="social-links">
-            <a href="#" className="social-link"><i className="fab fa-twitter"></i></a>
-            <a href="#" className="social-link"><i className="fab fa-facebook"></i></a>
-            <a href="#" className="social-link"><i className="fab fa-linkedin"></i></a>
-            <a href="#" className="social-link"><i className="fab fa-instagram"></i></a>
+            <a href="#" className="social-link" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
+            <a href="#" className="social-link" aria-label="Facebook"><i className="fab fa-facebook"></i></a>
+            <a href="#" className="social-link" aria-label="LinkedIn"><i className="fab fa-linkedin"></i></a>
+            <a href="#" className="social-link" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
           </div>
         </div>
       </footer>
