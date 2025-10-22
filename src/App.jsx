@@ -1,18 +1,42 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import './index.css'; // We'll create this for custom styles
+import './App.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 20;
 
 function App() {
   const searchInput = useRef(null);
+  const parallaxRef = useRef(null);
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Parallax Effect
+  useEffect(() => {
+    const handleParallax = (e) => {
+      if (!parallaxRef.current) return;
+      
+      let _w = window.innerWidth / 2;
+      let _h = window.innerHeight / 2;
+      let _mouseX = e.clientX;
+      let _mouseY = e.clientY;
+      let _depth1 = `${50 - (_mouseX - _w) * 0.01}% ${50 - (_mouseY - _h) * 0.01}%`;
+      let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
+      let _depth3 = `${50 - (_mouseX - _w) * 0.06}% ${50 - (_mouseY - _h) * 0.06}%`;
+      let x = `${_depth3}, ${_depth2}, ${_depth1}`;
+      
+      parallaxRef.current.style.backgroundPosition = x;
+    };
+
+    document.addEventListener("mousemove", handleParallax);
+    return () => {
+      document.removeEventListener("mousemove", handleParallax);
+    };
+  }, []);
 
   const fetchImages = useCallback(async () => {
     try {
@@ -58,101 +82,106 @@ function App() {
 
   return (
     <>
-      {/* Enhanced Navbar */}
-      <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className="custom-navbar">
-        <Container>
-          <Navbar.Brand href="#" className="brand">
-            <i className="fas fa-camera me-2"></i>
-            Image Gallery Pro
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarSupportedContent" />
-          <Navbar.Collapse id="navbarSupportedContent">
-            <Nav className="me-auto">
-              <Nav.Link href="#" className="active">Home</Nav.Link>
-              <Nav.Link href="#">Featured</Nav.Link>
-              <NavDropdown title="Categories" className="active" id="navbarDropdown">
-                <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => handleSelection('technology')}>Technology</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#">About</Nav.Link>
-            </Nav>
-            <Form className="d-flex search-form" onSubmit={handleSearch}>
-              <Form.Control
-                type="search"
-                placeholder="Search for images..."
-                className="me-2 search-input-nav"
-                aria-label="Search"
-                ref={searchInput}
-              />
-              <Button variant="outline-light" type="submit">
-                <i className="fas fa-search"></i>
-              </Button>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      {/* Parallax Hero Section */}
+      <div className="parallax-hero">
+        <div 
+          id="parallax" 
+          ref={parallaxRef}
+          className="parallax-container"
+        >
+          <div className="parallax-overlay">
+            {/* Navbar */}
+            <Navbar bg="transparent" variant="dark" expand="lg" className="custom-navbar">
+              <Container>
+                <Navbar.Brand href="#" className="brand">
+                  <i className="fas fa-camera me-2"></i>
+                  Image Gallery Pro
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarSupportedContent" />
+                <Navbar.Collapse id="navbarSupportedContent">
+                  <Nav className="me-auto">
+                    <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
+                    <Nav.Link href="#" className="nav-link-custom">Featured</Nav.Link>
+                    <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
+                      <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
+                      <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
+                      <NavDropdown.Item onClick={() => handleSelection('technology')}>Technology</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link href="#" className="nav-link-custom">About</Nav.Link>
+                  </Nav>
+                  <Form className="d-flex search-form" onSubmit={handleSearch}>
+                    <Form.Control
+                      type="search"
+                      placeholder="Search for images..."
+                      className="me-2 search-input-nav"
+                      aria-label="Search"
+                      ref={searchInput}
+                    />
+                    <Button variant="outline-light" type="submit">
+                      <i className="fas fa-search"></i>
+                    </Button>
+                  </Form>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
 
-      {/* Main Content */}
-      <div className='main-container'>
-        <Container>
-          {/* Hero Section */}
-          <div className='hero-section text-center mb-5'>
-            <h1 className='hero-title'>Discover Amazing Images</h1>
-            <p className='hero-subtitle'>Search through millions of high-quality photos from Vishi.ai</p>
-            
-            {/* Main Search */}
-            <div className='search-section mb-4'>
-              <Form onSubmit={handleSearch} className="main-search-form">
-                <div className="search-input-group">
-                  <Form.Control
-                    type='search'
-                    placeholder='What are you looking for? (e.g., mountains, coffee, coding...)'
-                    className='main-search-input'
-                    ref={searchInput}
-                  />
-                  <Button variant="primary" type="submit" className="search-btn">
-                    <i className="fas fa-search me-2"></i>
-                    Search
-                  </Button>
-                </div>
-              </Form>
-            </div>
+            {/* Hero Content */}
+            <div className="hero-content">
+              <h1 className="hero-title">Discover Amazing Images</h1>
+              <p className="hero-subtitle">Search through millions of high-quality photos with stunning parallax effects</p>
+              
+              {/* Main Search */}
+              <div className='search-section'>
+                <Form onSubmit={handleSearch} className="main-search-form">
+                  <div className="search-input-group">
+                    <Form.Control
+                      type='search'
+                      placeholder='What are you looking for? (e.g., mountains, coffee, coding...)'
+                      className='main-search-input'
+                      ref={searchInput}
+                    />
+                    <Button variant="primary" type="submit" className="search-btn">
+                      <i className="fas fa-search me-2"></i>
+                      Search
+                    </Button>
+                  </div>
+                </Form>
+              </div>
 
-            {/* Quick Filters */}
-            <div className='filters-section'>
-              <h5 className="filters-title">Popular Searches:</h5>
-              <div className='filters'>
-                <div className="filter-chip" onClick={() => handleSelection('code')}>
-                  <i className="fas fa-code me-1"></i>Code
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('hacker')}>
-                  <i className="fas fa-laptop me-1"></i>Hacker
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('nature')}>
-                  <i className="fas fa-tree me-1"></i>Nature
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('birds')}>
-                  <i className="fas fa-dove me-1"></i>Birds
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('cats')}>
-                  <i className="fas fa-cat me-1"></i>Cats
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('shoes')}>
-                  <i className="fas fa-shoe-prints me-1"></i>Shoes
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('elephant')}>
-                  <i className="fas fa-paw me-1"></i>Elephant
-                </div>
-                <div className="filter-chip" onClick={() => handleSelection('toys')}>
-                  <i className="fas fa-gamepad me-1"></i>Toys
+              {/* Quick Filters */}
+              <div className='filters-section'>
+                <h5 className="filters-title">Trending Searches:</h5>
+                <div className='filters'>
+                  <div className="filter-chip" onClick={() => handleSelection('code')}>
+                    <i className="fas fa-code me-1"></i>Code
+                  </div>
+                  <div className="filter-chip" onClick={() => handleSelection('hacker')}>
+                    <i className="fas fa-laptop me-1"></i>Hacker
+                  </div>
+                  <div className="filter-chip" onClick={() => handleSelection('nature')}>
+                    <i className="fas fa-tree me-1"></i>Nature
+                  </div>
+                  <div className="filter-chip" onClick={() => handleSelection('birds')}>
+                    <i className="fas fa-dove me-1"></i>Birds
+                  </div>
+                  <div className="filter-chip" onClick={() => handleSelection('cats')}>
+                    <i className="fas fa-cat me-1"></i>Cats
+                  </div>
+                  <div className="filter-chip" onClick={() => handleSelection('shoes')}>
+                    <i className="fas fa-shoe-prints me-1"></i>Shoes
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
+      {/* Main Content */}
+      <div className='main-content'>
+        <Container>
           {/* Error Message */}
           {errorMsg && (
             <div className='alert alert-danger text-center error-message' role="alert">
@@ -174,8 +203,11 @@ function App() {
               {/* Images Grid */}
               {images.length > 0 && (
                 <div className='images-section'>
-                 
-                 <div className='images-grid'>
+                  <div className="results-header d-flex justify-content-between align-items-center mb-4">
+                    <h4>Search Results</h4>
+                    <span className="results-count">Page {page} of {totalPages}</span>
+                  </div>
+                  <div className='images-grid'>
                     {images.map((image) => (
                       <div key={image.id} className="image-card">
                         <img
@@ -192,6 +224,10 @@ function App() {
                               <small>
                                 <i className="fas fa-heart me-1"></i>
                                 {image.likes}
+                              </small>
+                              <small>
+                                <i className="fas fa-eye me-1 ms-2"></i>
+                                {image.views || 0}
                               </small>
                             </div>
                           </div>
@@ -235,8 +271,8 @@ function App() {
               {images.length === 0 && !loading && (
                 <div className="empty-state text-center py-5">
                   <i className="fas fa-images empty-icon"></i>
-                  <h4>No images found</h4>
-                  <p>Try searching for something else or browse our popular categories</p>
+                  <h4>Ready to Explore?</h4>
+                  <p>Search for images above or try our trending categories to get started</p>
                 </div>
               )}
             </>
@@ -245,10 +281,10 @@ function App() {
       </div>
 
       {/* Footer */}
-      <footer className="footer bg-dark text-light text-center py-4 mt-5">
+      <footer className="footer bg-dark text-light text-center py-4">
         <Container>
           <p className="mb-0">
-            Made with <i className="fas fa-heart text-danger"></i> for developers <b>Vivek Agrahari</b>
+            Powered by <strong>Unsplash API</strong> • Made with <i className="fas fa-heart text-danger"></i> for developers
           </p>
         </Container>
       </footer>
@@ -257,10 +293,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
