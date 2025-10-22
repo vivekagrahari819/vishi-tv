@@ -191,7 +191,7 @@ function App() {
               <Container>
                 <Navbar.Brand href="#" className="brand">
                   <i className="fas fa-camera me-2"></i>
-                  Image Gallery Pro
+                 Vishi.ai
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
@@ -478,6 +478,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
