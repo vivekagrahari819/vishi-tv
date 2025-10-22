@@ -64,7 +64,7 @@
 
 .main-search-input {
   border: none;
-  border-radius: 50px;
+ 
   padding: 1rem 1.5rem;
   font-size: 1.1rem;
 }
@@ -286,3 +286,4 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
