@@ -251,7 +251,7 @@ function App() {
       <footer className="footer bg-dark text-light text-center py-4 mt-5">
         <Container>
           <p className="mb-0">
-            Powered by <strong>Unsplash API</strong> • Made with <i className="fas fa-heart text-danger"></i> for developers
+            Made with <i className="fas fa-heart text-danger"></i> for developers <b>Vivek Agrahari</b>
           </p>
         </Container>
       </footer>
@@ -260,4 +260,5 @@ function App() {
 }
 
 export default App;
+
 
