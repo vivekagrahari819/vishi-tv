@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const IMAGES_PER_PAGE = 20;
-const ACCESS_KEY = "YOUR_UNSPLASH_ACCESS_KEY"; // 🔹 Replace with your Unsplash Access Key
+const ACCESS_KEY = "YOUR_UNSPLASH_ACCESS_KEY"; // 🔹 Replace this with your real key
 
 function Home() {
   const searchInput = useRef(null);
@@ -14,8 +14,10 @@ function Home() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchImages = async (query, page) => {
+    setLoading(true);
     try {
       const response = await axios.get(API_URL, {
         params: {
@@ -29,6 +31,8 @@ function Home() {
       setTotalPages(response.data.total_pages);
     } catch (error) {
       console.error("Error fetching images:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,19 +59,21 @@ function Home() {
 
   return (
     <Container className="mt-4">
-      <Form onSubmit={handleSearch} className="d-flex mb-3">
+      <Form onSubmit={handleSearch} className="d-flex mb-3 justify-content-center">
         <Form.Control
           type="search"
           placeholder="Search for images..."
           ref={searchInput}
-          className="me-2"
+          className="me-2 w-50"
         />
         <Button variant="primary" type="submit">
           Search
         </Button>
       </Form>
 
-      {images.length > 0 ? (
+      {loading ? (
+        <p className="text-center mt-5 text-muted">Loading images...</p>
+      ) : images.length > 0 ? (
         <div className="d-flex flex-wrap justify-content-center gap-3">
           {images.map((image) => (
             <div key={image.id} className="card shadow-sm" style={{ width: "18rem" }}>
@@ -78,9 +84,7 @@ function Home() {
                 style={{ borderRadius: "10px" }}
               />
               <div className="card-body text-center">
-                <p className="card-text text-muted">
-                  {image.user.name}
-                </p>
+                <p className="card-text text-muted">{image.user.name}</p>
                 <a
                   href={image.links.html}
                   target="_blank"
@@ -125,7 +129,8 @@ function About() {
     <Container className="mt-4 text-center">
       <h2>About This App</h2>
       <p>
-        This app uses the Unsplash API to search and display images. Built with React, Axios, and React Bootstrap.
+        This app uses the Unsplash API to search and display beautiful photos.
+        Built with React, Axios, and React Bootstrap.
       </p>
     </Container>
   );
@@ -134,19 +139,22 @@ function About() {
 function App() {
   return (
     <Router>
-      {/* 🔹 Navbar */}
-      <Navbar bg="dark" variant="dark" expand="lg">
+      {/* ✅ Fixed Navbar — now stays horizontal on larger screens */}
+      <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
             Unsplash Gallery
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/">
+
+          {/* Toggle for mobile view */}
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto d-flex align-items-center">
+              <Nav.Link as={Link} to="/" className="fs-6 px-3">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/about">
+              <Nav.Link as={Link} to="/about" className="fs-6 px-3">
                 About
               </Nav.Link>
             </Nav>
@@ -154,7 +162,6 @@ function App() {
         </Container>
       </Navbar>
 
-      {/* 🔹 Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
