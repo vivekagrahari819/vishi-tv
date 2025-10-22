@@ -364,7 +364,7 @@ function App() {
                                   )}
                                   {downloading[image.id] ? 'Downloading...' : 'Download'}
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu className="download-menu">
+                                <Dropdown.Menu className="download-menu" style="background-color:black;">
                                   <Dropdown.Header>Download Quality</Dropdown.Header>
                                   <Dropdown.Item 
                                     onClick={() => downloadImageWithQuality(image, 'small')}
@@ -478,4 +478,5 @@ function App() {
 }
 
 export default App;
+
 
