@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Navbar, Nav, Container, NavDropdown, Dropdown } from 'react-bootstrap';
-import './App.css';
+import './index.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 20;
@@ -478,3 +478,4 @@ function App() {
 }
 
 export default App;
+
