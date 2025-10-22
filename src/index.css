@@ -553,7 +553,7 @@ body {
 }
 
 .download-menu .dropdown-item {
-  color: rgba(255, 255, 255, 0.8);
+  color: black;
   font-size: 0.85rem;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
@@ -563,7 +563,7 @@ body {
 
 .download-menu .dropdown-item:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: black;
   transform: translateX(5px);
 }
 
@@ -705,5 +705,6 @@ body {
   height: 100%;
   transition: width 0.3s ease;
 }
+
 
 
