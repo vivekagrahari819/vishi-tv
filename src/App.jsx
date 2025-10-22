@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Button, Form, Navbar, Nav, Container } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Container,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const IMAGES_PER_PAGE = 20;
-const ACCESS_KEY = "YOUR_UNSPLASH_ACCESS_KEY"; // 🔹 Replace this with your real key
+const ACCESS_KEY = "YOUR_UNSPLASH_ACCESS_KEY"; // 🔹 Replace this with your actual key
 
 function Home() {
   const searchInput = useRef(null);
@@ -21,8 +28,8 @@ function Home() {
     try {
       const response = await axios.get(API_URL, {
         params: {
-          query: query,
-          page: page,
+          query,
+          page,
           per_page: IMAGES_PER_PAGE,
           client_id: ACCESS_KEY,
         },
@@ -66,7 +73,7 @@ function Home() {
           ref={searchInput}
           className="me-2 w-50"
         />
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Search
         </Button>
       </Form>
@@ -89,7 +96,7 @@ function Home() {
                   href={image.links.html}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-outline-primary btn-sm"
+                  className="btn btn-outline-success btn-sm"
                 >
                   View on Unsplash
                 </a>
@@ -139,29 +146,52 @@ function About() {
 function App() {
   return (
     <Router>
-      {/* ✅ Fixed Navbar — now stays horizontal on larger screens */}
-      <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-        <Container>
-          <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
-            Unsplash Gallery
+      {/* ✅ Responsive, Clean Bootstrap Navbar */}
+      <Navbar bg="light" expand="lg" className="shadow-sm py-3">
+        <Container fluid>
+          <Navbar.Brand as={Link} to="/" className="fw-bold text-success fs-4">
+            PhotoSearch
           </Navbar.Brand>
-
-          {/* Toggle for mobile view */}
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto d-flex align-items-center">
-              <Nav.Link as={Link} to="/" className="fs-6 px-3">
+          <Navbar.Toggle aria-controls="navbarSupportedContent" />
+          <Navbar.Collapse id="navbarSupportedContent">
+            <Nav className="me-auto mb-2 mb-lg-0">
+              <Nav.Link as={Link} to="/" className="fw-semibold">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/about" className="fs-6 px-3">
+              <Nav.Link as={Link} to="/about" className="fw-semibold">
                 About
               </Nav.Link>
+
+              <NavDropdown title="Categories" id="navbarDropdown">
+                <NavDropdown.Item onClick={() => window.location.reload()}>
+                  Nature
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => window.location.reload()}>
+                  Technology
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={() => window.location.reload()}>
+                  Animals
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <Nav.Link disabled>Disabled</Nav.Link>
             </Nav>
+
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
+      {/* Page Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
