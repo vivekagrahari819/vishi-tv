@@ -175,7 +175,7 @@ function App() {
               {images.length > 0 && (
                 <div className='images-section'>
                   <div className="results-header d-flex justify-content-between align-items-center mb-4">
-                    <h4>Search Results</h4>
+                    {/* <h4>Search Results</h4> */}
                     <span className="results-count">Page {page} of {totalPages}</span>
                   </div>
                   <div className='images-grid'>
@@ -260,5 +260,6 @@ function App() {
 }
 
 export default App;
+
 
 
