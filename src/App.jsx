@@ -380,152 +380,42 @@ function Contact() {
 function App() {
   return (
     <Router>
-      {/* Bootstrap Navbar */}
-      <Navbar bg="white" expand="lg" className="shadow-sm py-3 sticky-top">
-        <Container>
-          <Navbar.Brand as={Link} to="/" className="fw-bold text-primary fs-3">
-            <i className="fas fa-camera me-2"></i>
-            PhotoSearch
-          </Navbar.Brand>
-          
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className="fw-semibold mx-2">
-                <i className="fas fa-home me-1"></i>
-                Home
-              </Nav.Link>
-              <Nav.Link as={Link} to="/about" className="fw-semibold mx-2">
-                <i className="fas fa-info-circle me-1"></i>
-                About
-              </Nav.Link>
-              <Nav.Link as={Link} to="/contact" className="fw-semibold mx-2">
-                <i className="fas fa-envelope me-1"></i>
-                Contact
-              </Nav.Link>
-              
-              <NavDropdown 
-                title={
-                  <span>
-                    <i className="fas fa-th-large me-1"></i>
-                    Categories
-                  </span>
-                } 
-                id="basic-nav-dropdown"
-                className="mx-2"
-              >
-                <NavDropdown.Item as={Link} to="/">
-                  Nature Photography
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/">
-                  Technology & Code
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/">
-                  Animals & Wildlife
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/">
-                  View All Categories
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-
-            {/* Search in Navbar */}
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Quick search..."
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-primary">
-                <i className="fas fa-search"></i>
-              </Button>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-
-      {/* Page Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-
-      {/* Footer */}
-      <footer className="bg-dark text-light py-5 mt-5">
-        <Container>
-          <Row>
-            <Col md={4} className="mb-4">
-              <h5 className="fw-bold">
-                <i className="fas fa-camera me-2"></i>
-                PhotoSearch
-              </h5>
-              <p className="text-muted">
-                Discover and explore beautiful photos from around the world. 
-                Powered by Unsplash API.
-              </p>
-              <div className="d-flex gap-3">
-                <a href="#" className="text-light">
-                  <i className="fab fa-twitter fa-lg"></i>
-                </a>
-                <a href="#" className="text-light">
-                  <i className="fab fa-facebook fa-lg"></i>
-                </a>
-                <a href="#" className="text-light">
-                  <i className="fab fa-instagram fa-lg"></i>
-                </a>
-                <a href="#" className="text-light">
-                  <i className="fab fa-github fa-lg"></i>
-                </a>
-              </div>
-            </Col>
-            <Col md={2} className="mb-4">
-              <h6 className="fw-bold">Explore</h6>
-              <ul className="list-unstyled">
-                <li><a href="#" className="text-muted text-decoration-none">Popular</a></li>
-                <li><a href="#" className="text-muted text-decoration-none">Latest</a></li>
-                <li><a href="#" className="text-muted text-decoration-none">Collections</a></li>
-                <li><a href="#" className="text-muted text-decoration-none">Categories</a></li>
-              </ul>
-            </Col>
-            <Col md={2} className="mb-4">
-              <h6 className="fw-bold">Company</h6>
-              <ul className="list-unstyled">
-                <li><Link to="/about" className="text-muted text-decoration-none">About</Link></li>
-                <li><Link to="/contact" className="text-muted text-decoration-none">Contact</Link></li>
-                <li><a href="#" className="text-muted text-decoration-none">Careers</a></li>
-                <li><a href="#" className="text-muted text-decoration-none">Press</a></li>
-              </ul>
-            </Col>
-            <Col md={4} className="mb-4">
-              <h6 className="fw-bold">Newsletter</h6>
-              <p className="text-muted small">
-                Subscribe to get updates on new features and photos.
-              </p>
-              <Form className="d-flex">
-                <Form.Control
-                  type="email"
-                  placeholder="Your email"
-                  className="me-2"
-                />
-                <Button variant="primary">Subscribe</Button>
-              </Form>
-            </Col>
-          </Row>
-          <hr className="my-4" />
-          <Row>
-            <Col className="text-center">
-              <p className="text-muted mb-0">
-                &copy; 2024 PhotoSearch. All rights reserved. | 
-                Powered by <a href="https://unsplash.com" className="text-muted">Unsplash</a>
-              </p>
-            </Col>
-          </Row>
-        </Container>
-      </footer>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 
       {/* Font Awesome Icons */}
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -534,3 +424,4 @@ function App() {
 }
 
 export default App;
+
