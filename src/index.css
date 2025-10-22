@@ -568,7 +568,7 @@ body {
 }
 
 .download-menu .dropdown-header {
-  color: rgba(255, 255, 255, 0.6);
+  color: black
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -705,6 +705,7 @@ body {
   height: 100%;
   transition: width 0.3s ease;
 }
+
 
 
 
