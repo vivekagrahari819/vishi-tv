@@ -70,7 +70,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="#" className="active">Home</Nav.Link>
               <Nav.Link href="#">Featured</Nav.Link>
-              <NavDropdown title="Categories" id="navbarDropdown">
+              <NavDropdown title="Categories" className="active" id="navbarDropdown">
                 <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => handleSelection('technology')}>Technology</NavDropdown.Item>
@@ -257,6 +257,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
