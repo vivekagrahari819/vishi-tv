@@ -219,7 +219,7 @@ function App() {
                       className="me-2 search-input-nav"
                       aria-label="Search"
                       ref={searchInput}
-                      defaultValue="technology"
+                      
                     />
                     <Button variant="outline-light" type="submit">
                       <i className="fas fa-search"></i>
@@ -479,3 +479,4 @@ function App() {
 }
 
 export default App;
+
