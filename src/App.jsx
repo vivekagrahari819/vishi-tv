@@ -198,6 +198,7 @@ function App() {
                   <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
                     <Nav.Link href="#" className="nav-link-custom">Featured</Nav.Link>
+                     <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Featured</Nav.Link>
                     <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
                       <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
@@ -478,6 +479,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
