@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const handleParallax = (e) => {
       if (!parallaxRef.current) return;
-      
+
       let _w = window.innerWidth / 2;
       let _h = window.innerHeight / 2;
       let _mouseX = e.clientX;
@@ -29,7 +29,7 @@ function App() {
       let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
       let _depth3 = `${50 - (_mouseX - _w) * 0.06}% ${50 - (_mouseY - _h) * 0.06}%`;
       let x = `${_depth3}, ${_depth2}, ${_depth1}`;
-      
+
       parallaxRef.current.style.backgroundPosition = x;
     };
 
@@ -42,7 +42,7 @@ function App() {
   // Download single image
   const downloadImage = async (imageUrl, imageId, filename) => {
     setDownloading(prev => ({ ...prev, [imageId]: true }));
-    
+
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
@@ -54,7 +54,7 @@ function App() {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      
+
       // Show success feedback
       const originalText = document.querySelector(`.download-btn-${imageId}`)?.textContent;
       const button = document.querySelector(`.download-btn-${imageId}`);
@@ -77,9 +77,9 @@ function App() {
   // Download all images in current view
   const downloadAllImages = async () => {
     if (images.length === 0) return;
-    
+
     setDownloading(prev => ({ ...prev, 'all': true }));
-    
+
     try {
       for (let i = 0; i < images.length; i++) {
         const image = images[i];
@@ -93,7 +93,7 @@ function App() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        
+
         // Small delay to avoid overwhelming the browser
         await new Promise(resolve => setTimeout(resolve, 100));
       }
@@ -109,7 +109,7 @@ function App() {
   const downloadImageWithQuality = async (image, quality) => {
     let imageUrl;
     let suffix = '';
-    
+
     switch (quality) {
       case 'small':
         imageUrl = image.urls.small;
@@ -130,7 +130,7 @@ function App() {
       default:
         imageUrl = image.urls.regular;
     }
-    
+
     await downloadImage(imageUrl, image.id, `${searchInput.current.value || 'image'}${suffix}`);
   };
 
@@ -161,6 +161,14 @@ function App() {
     fetchImages();
   }, [fetchImages]);
 
+  // ✅ Default search for "technology" on page load
+  useEffect(() => {
+    if (searchInput.current) {
+      searchInput.current.value = 'technology';
+    }
+    fetchImages();
+  }, []);
+
   const resetSearch = () => {
     setPage(1);
     fetchImages();
@@ -180,25 +188,21 @@ function App() {
     <>
       {/* Parallax Hero Section */}
       <div className="parallax-hero">
-        <div 
-          id="parallax" 
-          ref={parallaxRef}
-          className="parallax-container"
-        >
+        <div id="parallax" ref={parallaxRef} className="parallax-container">
           <div className="parallax-overlay">
             {/* Navbar */}
             <Navbar bg="transparent" variant="dark" expand="lg" className="custom-navbar">
               <Container>
                 <Navbar.Brand href="#" className="brand">
                   <i className="fas fa-camera me-2"></i>
-                 Vishi.ai
+                  Vishi.ai
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
                   <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
                     <Nav.Link href="#" className="nav-link-custom">Featured</Nav.Link>
-                     <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
+                    <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
                     <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
                       <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
@@ -215,6 +219,7 @@ function App() {
                       className="me-2 search-input-nav"
                       aria-label="Search"
                       ref={searchInput}
+                      defaultValue="technology"
                     />
                     <Button variant="outline-light" type="submit">
                       <i className="fas fa-search"></i>
@@ -228,7 +233,7 @@ function App() {
             <div className="hero-content">
               <h1 className="hero-title">Discover & Download Amazing Images</h1>
               <p className="hero-subtitle">Search through millions of high-quality photos and download them instantly</p>
-              
+
               {/* Main Search */}
               <div className='search-section'>
                 <Form onSubmit={handleSearch} className="main-search-form">
@@ -238,6 +243,7 @@ function App() {
                       placeholder='What are you looking for? (e.g., mountains, coffee, coding...)'
                       className='main-search-input'
                       ref={searchInput}
+                      defaultValue="technology"
                     />
                     <Button variant="primary" type="submit" className="search-btn">
                       <i className="fas fa-search me-2"></i>
@@ -279,7 +285,6 @@ function App() {
       {/* Main Content */}
       <div className='main-content'>
         <Container>
-          {/* Error Message */}
           {errorMsg && (
             <div className='alert alert-danger text-center error-message' role="alert">
               <i className="fas fa-exclamation-triangle me-2"></i>
@@ -287,7 +292,6 @@ function App() {
             </div>
           )}
 
-          {/* Loading State */}
           {loading ? (
             <div className="loading-container text-center py-5">
               <div className="spinner-border text-primary" role="status">
@@ -297,7 +301,6 @@ function App() {
             </div>
           ) : (
             <>
-              {/* Images Grid */}
               {images.length > 0 && (
                 <div className='images-section'>
                   <div className="results-header d-flex justify-content-between align-items-center mb-4">
@@ -307,8 +310,8 @@ function App() {
                     </div>
                     <div className="d-flex align-items-center gap-3">
                       <span className="results-count">Page {page} of {totalPages}</span>
-                      <Button 
-                        variant="success" 
+                      <Button
+                        variant="success"
                         onClick={downloadAllImages}
                         disabled={downloading.all}
                         className="download-all-btn"
@@ -352,8 +355,8 @@ function App() {
                             </div>
                             <div className="image-actions mt-2">
                               <Dropdown className="download-dropdown">
-                                <Dropdown.Toggle 
-                                  variant="primary" 
+                                <Dropdown.Toggle
+                                  variant="primary"
                                   size="sm"
                                   className={`download-btn download-btn-${image.id}`}
                                   disabled={downloading[image.id]}
@@ -367,26 +370,26 @@ function App() {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="download-menu">
                                   <Dropdown.Header>Download Quality</Dropdown.Header>
-                                  <Dropdown.Item 
+                                  <Dropdown.Item
                                     onClick={() => downloadImageWithQuality(image, 'small')}
                                   >
                                     <i className="fas fa-compress me-2"></i>
                                     Small ({Math.round(image.width/4)}x{Math.round(image.height/4)})
                                   </Dropdown.Item>
-                                  <Dropdown.Item 
+                                  <Dropdown.Item
                                     onClick={() => downloadImageWithQuality(image, 'medium')}
                                   >
                                     <i className="fas fa-expand me-2"></i>
                                     Medium ({Math.round(image.width/2)}x{Math.round(image.height/2)})
                                   </Dropdown.Item>
-                                  <Dropdown.Item 
+                                  <Dropdown.Item
                                     onClick={() => downloadImageWithQuality(image, 'large')}
                                   >
                                     <i className="fas fa-expand-arrows-alt me-2"></i>
                                     Large ({image.width}x{image.height})
                                   </Dropdown.Item>
                                   {image.urls.raw && (
-                                    <Dropdown.Item 
+                                    <Dropdown.Item
                                       onClick={() => downloadImageWithQuality(image, 'original')}
                                     >
                                       <i className="fas fa-file-image me-2"></i>
@@ -408,7 +411,6 @@ function App() {
                             </div>
                           </div>
                         </div>
-                        {/* Download indicator */}
                         {downloading[image.id] && (
                           <div className="download-indicator">
                             <div className="download-spinner"></div>
@@ -419,12 +421,11 @@ function App() {
                     ))}
                   </div>
 
-                  {/* Pagination */}
                   {totalPages > 1 && (
                     <div className='pagination-section text-center mt-5'>
                       <div className="pagination-buttons">
-                        <Button 
-                          variant="outline-primary" 
+                        <Button
+                          variant="outline-primary"
                           onClick={() => setPage(page - 1)}
                           disabled={page <= 1}
                           className="pagination-btn"
@@ -435,8 +436,8 @@ function App() {
                         <span className="page-indicator mx-3">
                           Page {page} of {totalPages}
                         </span>
-                        <Button 
-                          variant="outline-primary" 
+                        <Button
+                          variant="outline-primary"
                           onClick={() => setPage(page + 1)}
                           disabled={page >= totalPages}
                           className="pagination-btn"
@@ -450,7 +451,6 @@ function App() {
                 </div>
               )}
 
-              {/* Empty State */}
               {images.length === 0 && !loading && (
                 <div className="empty-state text-center py-5">
                   <i className="fas fa-images empty-icon"></i>
@@ -479,9 +479,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
