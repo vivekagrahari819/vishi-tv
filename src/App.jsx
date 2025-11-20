@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Button, Form, Navbar, Nav, Container, NavDropdown, Dropdown } from 'react-bootstrap';
+import IPLocationTracker from './IPLocationTracker';
 import './index.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const IMAGES_PER_PAGE = 20;
 
-function App() {
+// Main Image Search Component
+function ImageSearch() {
   const searchInput = useRef(null);
   const parallaxRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -190,45 +193,6 @@ function App() {
       <div className="parallax-hero">
         <div id="parallax" ref={parallaxRef} className="parallax-container">
           <div className="parallax-overlay">
-            {/* Navbar */}
-            <Navbar bg="transparent" variant="dark" expand="lg" className="custom-navbar">
-              <Container>
-                <Navbar.Brand href="#" className="brand">
-                  <i className="fas fa-camera me-2"></i>
-                  Vishi.ai
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarSupportedContent" />
-                <Navbar.Collapse id="navbarSupportedContent">
-                  <Nav className="me-auto">
-                    <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
-                    <Nav.Link href="#" className="nav-link-custom">Featured</Nav.Link>
-                    <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
-                    <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
-                      <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
-                      <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
-                      <NavDropdown.Item onClick={() => handleSelection('technology')}>Technology</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#" className="nav-link-custom">About</Nav.Link>
-                  </Nav>
-                  <Form className="d-flex search-form" onSubmit={handleSearch}>
-                    <Form.Control
-                      type="search"
-                      placeholder="Search for images..."
-                      className="me-2 search-input-nav"
-                      aria-label="Search"
-                      ref={searchInput}
-                      
-                    />
-                    <Button variant="outline-light" type="submit">
-                      <i className="fas fa-search"></i>
-                    </Button>
-                  </Form>
-                </Navbar.Collapse>
-              </Container>
-            </Navbar>
-
             {/* Hero Content */}
             <div className="hero-content">
               <h1 className="hero-title">Discover & Download Amazing Images</h1>
@@ -462,21 +426,80 @@ function App() {
           )}
         </Container>
       </div>
-
-      {/* Footer */}
-      <footer className="footer bg-dark text-light text-center py-4">
-        <Container>
-          <p className="mb-0">
-            Powered by <strong>Unsplash API</strong> • Made with <i className="fas fa-heart text-danger"></i> for developers
-          </p>
-          <small className="text-muted">
-            Images are subject to Unsplash's license terms
-          </small>
-        </Container>
-      </footer>
     </>
   );
 }
 
-export default App;
+// Navigation Component
+function Navigation() {
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
+      <Container>
+        <Navbar.Brand href="/" className="brand">
+          <i className="fas fa-camera me-2"></i>
+          Vishi.ai
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarSupportedContent" />
+        <Navbar.Collapse id="navbarSupportedContent">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
+            <Nav.Link as={Link} to="/ip-tracker" className="nav-link-custom">IP Tracker</Nav.Link>
+            <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
+            <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
+              <NavDropdown.Item as={Link} to="/category/nature">Nature</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/category/animals">Animals</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/category/technology">Technology</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item as={Link} to="/category/art">Art & Design</NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link as={Link} to="/about" className="nav-link-custom">About</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+}
 
+// Footer Component
+function Footer() {
+  return (
+    <footer className="footer bg-dark text-light text-center py-4">
+      <Container>
+        <p className="mb-0">
+          Powered by <strong>Unsplash API</strong> • Made with <i className="fas fa-heart text-danger"></i> for developers
+        </p>
+        <small className="text-muted">
+          Images are subject to Unsplash's license terms
+        </small>
+      </Container>
+    </footer>
+  );
+}
+
+// Main App Component with Router
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<ImageSearch />} />
+          <Route path="/ip-tracker" element={<IPLocationTracker />} />
+          <Route path="/category/:category" element={<ImageSearch />} />
+          <Route path="/about" element={
+            <Container className="py-5 text-center">
+              <h2>About Vishi.ai</h2>
+              <p>Your go-to platform for amazing images and IP tracking tools.</p>
+            </Container>
+          } />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+// Import Link at the top
+import { Link } from 'react-router-dom';
+
+export default App;
