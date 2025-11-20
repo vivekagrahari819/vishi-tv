@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Navbar, Nav, Container, NavDropdown, Dropdown } from 'react-bootstrap';
-import IPLocationTracker from '/IPLocationTracker';
 import './index.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
@@ -202,7 +201,7 @@ function App() {
                 <Navbar.Collapse id="navbarSupportedContent">
                   <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
-                    <Nav.Link href="/IPLocationTracker.html" className="nav-link-custom">Featured</Nav.Link>
+                    <Nav.Link href="/vishi-tv/ipaddress.html" className="nav-link-custom">Featured</Nav.Link>
                     <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
                     <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
@@ -480,5 +479,6 @@ function App() {
 }
 
 export default App;
+
 
 
