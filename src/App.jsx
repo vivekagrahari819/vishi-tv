@@ -201,7 +201,7 @@ function App() {
                 <Navbar.Collapse id="navbarSupportedContent">
                   <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
-                    <Nav.Link href="https://ipaddress-q8cjb7d2d-vivekagraharis-projects.vercel.app/" className="nav-link-custom">Featured</Nav.Link>
+                    <Nav.Link href="https://ipaddress-q8cjb7d2d-vivekagraharis-projects.vercel.app/" className="nav-link-custom">Check IP-address</Nav.Link>
                     <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
                     <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
@@ -479,6 +479,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
