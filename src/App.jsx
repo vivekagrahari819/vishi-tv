@@ -203,14 +203,14 @@ function App() {
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
                     <Nav.Link href="https://ipaddress-weld.vercel.app/" className="nav-link-custom">Check IP-address</Nav.Link>
                     <Nav.Link href="https://drive.google.com/file/d/1_0Z9p8iqUe0vGaK9XqDOlQfw48i8OlPi/view?usp=drive_link" className="nav-link-custom">Aws Setup</Nav.Link>
-                    <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
+                    {/* <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
                       <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
                       <NavDropdown.Item onClick={() => handleSelection('technology')}>Technology</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#" className="nav-link-custom">About</Nav.Link>
+                    </NavDropdown> */}
+                    <Nav.Link href="#" className="nav-link-custom">Noice Reduction</Nav.Link>
                   </Nav>
                   <Form className="d-flex search-form" onSubmit={handleSearch}>
                     <Form.Control
@@ -479,6 +479,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
