@@ -202,7 +202,7 @@ function App() {
                   <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
                     <Nav.Link href="https://ipaddress-weld.vercel.app/" className="nav-link-custom">Check IP-address</Nav.Link>
-                    <Nav.Link href="https://github.com/vivekagrahari819/aws_setup.git" className="nav-link-custom">Notes</Nav.Link>
+                    {/* <Nav.Link href="https://github.com/vivekagrahari819/aws_setup.git" className="nav-link-custom">Notes</Nav.Link> */}
                     {/* <NavDropdown title="Categories" id="navbarDropdown" className="nav-dropdown-custom">
                       <NavDropdown.Item onClick={() => handleSelection('nature')}>Nature</NavDropdown.Item>
                       <NavDropdown.Item onClick={() => handleSelection('animals')}>Animals</NavDropdown.Item>
@@ -479,6 +479,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
