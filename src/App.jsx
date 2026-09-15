@@ -210,7 +210,7 @@ function App() {
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
                     </NavDropdown> */}
-                    <Nav.Link href="#" className="nav-link-custom">Noice Reduction</Nav.Link>
+                    <Nav.Link href="#" className="nav-link-custom">Websites</Nav.Link>
                   </Nav>
                   <Form className="d-flex search-form" onSubmit={handleSearch}>
                     <Form.Control
