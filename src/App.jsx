@@ -193,10 +193,20 @@ function App() {
             {/* Navbar */}
             <Navbar bg="transparent" variant="dark" expand="lg" className="custom-navbar">
               <Container>
-                <Navbar.Brand href="#" className="brand">
-                  <i className="fas fa-camera me-2"></i>
-                  Vishi.ai
-                </Navbar.Brand>
+                
+                
+                
+            <Navbar.Brand href="#" className="brand">
+  <img
+    src="/vishi-logo.png"
+    alt="Vishi.ai"
+    style={{
+      width: "45px",
+      height: "45px",
+      objectFit: "contain"
+    }}
+  />
+</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
                   <Nav className="me-auto">
