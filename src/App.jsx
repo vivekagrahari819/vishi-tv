@@ -195,17 +195,18 @@ function App() {
               <Container>
                 
                 
-                
-            <Navbar.Brand href="#" className="brand">
+           <Navbar.Brand href="#" className="brand d-flex align-items-center">
   <img
     src="/vishi-logo.png"
     alt="Vishi.ai"
     style={{
-      width: "45px",
-      height: "45px",
-      objectFit: "contain"
+      width: "38px",
+      height: "38px",
+      objectFit: "contain",
+      marginRight: "10px"
     }}
   />
+  <span>Vishi.ai</span>
 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
