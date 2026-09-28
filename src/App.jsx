@@ -195,18 +195,33 @@ function App() {
               <Container>
                 
                 
-           <Navbar.Brand href="#" className="brand d-flex align-items-center">
-  <img
-    src="/vishi-logo.png"
-    alt="Vishi.ai"
-    style={{
-      width: "38px",
-      height: "38px",
-      objectFit: "contain",
-      marginRight: "10px"
-    }}
-  />
-  <span>Vishi.ai</span>
+       <Navbar.Brand href="#" className="brand d-flex align-items-center">
+  <svg
+    width="42"
+    height="42"
+    viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="vishiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#20c9ff" />
+        <stop offset="50%" stopColor="#2563eb" />
+        <stop offset="100%" stopColor="#7c3aed" />
+      </linearGradient>
+    </defs>
+
+    <path
+      d="M12 18 L39 75 Q50 91 61 75 L88 18 L70 18 L50 55 L30 18 Z"
+      fill="url(#vishiGradient)"
+    />
+
+    <path
+      d="M58 55 L78 42 L78 68 Z"
+      fill="white"
+    />
+  </svg>
+
+  <span className="ms-2 fw-bold">Vishi.ai</span>
 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
