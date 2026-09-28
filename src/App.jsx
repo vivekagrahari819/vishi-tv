@@ -225,7 +225,7 @@ function App() {
 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
-                  <Nav className="me-auto">
+                  {/* <Nav className="me-auto">
                     <Nav.Link href="#" className="nav-link-custom active">Home</Nav.Link>
                     <Nav.Link href="https://ipaddress-weld.vercel.app/" className="nav-link-custom">Check IP-address</Nav.Link>
                     {/* <Nav.Link href="https://github.com/vivekagrahari819/aws_setup.git" className="nav-link-custom">Notes</Nav.Link> */}
@@ -237,7 +237,233 @@ function App() {
                       <NavDropdown.Item onClick={() => handleSelection('art')}>Art & Design</NavDropdown.Item>
                     </NavDropdown> */}
                     <Nav.Link href="#" className="nav-link-custom">Websites</Nav.Link>
-                  </Nav>
+                  </Nav> */}
+
+
+                <Nav className="me-auto">
+
+  <Nav.Link
+    href="#"
+    className={`nav-link-custom ${
+      activeSection === 'home' ? 'active' : ''
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      setActiveSection('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+  >
+    Home
+  </Nav.Link>
+
+  <Nav.Link
+    href="https://ipaddress-weld.vercel.app/"
+    className="nav-link-custom"
+  >
+    Check IP-address
+  </Nav.Link>
+
+  <Nav.Link
+    href="#"
+    className={`nav-link-custom ${
+      activeSection === 'websites' ? 'active' : ''
+    }`}
+    onClick={(e) => {
+      e.preventDefault();
+      setActiveSection('websites');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+  >
+    Websites
+  </Nav.Link>
+
+</Nav>
+
+
+
+
+
+
+
+
+
+
+
+                {activeSection === 'websites' && (
+  <section className="projects-section">
+    <Container>
+
+      <div className="projects-header text-center">
+        <h1>My Projects</h1>
+
+        <p>
+          Explore my websites and web development projects
+        </p>
+      </div>
+
+      <div className="projects-grid">
+
+        {/* Project 1 */}
+        <div className="project-card">
+
+          <div className="project-image">
+            <img
+              src="/projects/vishi-ai.png"
+              alt="Vishi AI"
+            />
+          </div>
+
+          <div className="project-content">
+
+            <h3>Vishi.ai</h3>
+
+            <p>
+              An image search and download website built using
+              React, Bootstrap and Unsplash API.
+            </p>
+
+            <div className="project-tech">
+              <span>React</span>
+              <span>Bootstrap</span>
+              <span>API</span>
+            </div>
+
+            <div className="project-buttons">
+
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <i className="fas fa-globe me-2"></i>
+                Live Website
+              </a>
+
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-dark"
+              >
+                <i className="fab fa-github me-2"></i>
+                GitHub
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* Project 2 */}
+        <div className="project-card">
+
+          <div className="project-image">
+            <img
+              src="/projects/ip-address.png"
+              alt="IP Address Website"
+            />
+          </div>
+
+          <div className="project-content">
+
+            <h3>IP Address Finder</h3>
+
+            <p>
+              A simple web application that displays IP address
+              and related information.
+            </p>
+
+            <div className="project-tech">
+              <span>React</span>
+              <span>API</span>
+              <span>CSS</span>
+            </div>
+
+            <div className="project-buttons">
+
+              <a
+                href="https://ipaddress-weld.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <i className="fas fa-globe me-2"></i>
+                Live Website
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* Project 3 */}
+        <div className="project-card">
+
+          <div className="project-image">
+            <div className="project-placeholder">
+              <i className="fas fa-code"></i>
+            </div>
+          </div>
+
+          <div className="project-content">
+
+            <h3>My Next Project</h3>
+
+            <p>
+              Add your next React, Java, MERN or full-stack
+              project here.
+            </p>
+
+            <div className="project-tech">
+              <span>React</span>
+              <span>Java</span>
+              <span>Spring Boot</span>
+            </div>
+
+            <div className="project-buttons">
+
+              <a
+                href="#"
+                className="btn btn-primary"
+              >
+                <i className="fas fa-globe me-2"></i>
+                Live Website
+              </a>
+
+              <a
+                href="#"
+                className="btn btn-dark"
+              >
+                <i className="fab fa-github me-2"></i>
+                GitHub
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </Container>
+  </section>
+)}
+
+
+
+
+
+
+
+
+                
+                
                   <Form className="d-flex search-form" onSubmit={handleSearch}>
                     <Form.Control
                       type="search"
