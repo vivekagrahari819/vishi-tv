@@ -221,7 +221,7 @@ function App() {
     />
   </svg>
 
-  <span className="ms-2 fw-bold">Vishi.ai</span>
+  <span className="ms-2 fw-bold">Vishi.tv</span>
 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarSupportedContent" />
                 <Navbar.Collapse id="navbarSupportedContent">
